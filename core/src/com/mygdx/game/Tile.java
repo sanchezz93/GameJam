@@ -9,13 +9,9 @@ public class Tile {
 	private boolean isObstacle;
 	private Texture texture;
 	
-	public Tile(boolean isObstacle) {
+	public Tile(Texture texture, boolean isObstacle) {
 		this.setObstacle(isObstacle);
-		if(isObstacle) {
-			texture = new Texture("images/rocks.png");
-		} else {
-			texture = new Texture("images/grass.png");
-		}
+		this.texture = texture;
 	}
 
 	public boolean isObstacle() {

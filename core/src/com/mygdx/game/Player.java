@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class Player extends Character implements InputProcessor {
 
 	public Player() {
-		super(new Rectangle(5, 4, Tile.SIZE, Tile.SIZE), new Texture("images/player.png"));
+		super(new Rectangle(8, 6, Tile.SIZE, Tile.SIZE), new Texture("Images/player/1.png"));
 	}
 
 	@Override
