@@ -23,7 +23,7 @@ public class GameScreen implements Screen, InputProcessor {
 		camera.setToOrtho(true, 16, 9);
 				
 		player = new Player();
-		pig = new Pig();
+		pig = new Pig(player);
 		
 		InputMultiplexer multiplexer = new InputMultiplexer();
 		multiplexer.addProcessor(this);
