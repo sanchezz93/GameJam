@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import java.util.Random;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -9,11 +11,13 @@ import com.badlogic.gdx.math.Vector2;
 public class Pig extends Character {
 
 	private Player player;
-	int aiCounter;
+	private int aiCounter, updateTime;
+	
 		
-	public Pig(Player player) {
-		super(new Rectangle(14, 2, Tile.SIZE, Tile.SIZE), new Texture("Images/pig.png"), getAnimation());
+	public Pig(Player player, int x, int y) {
+		super(new Rectangle(x, y, (float)(Math.random()*Tile.SIZE + Tile.SIZE/2), (float) (Math.random()*Tile.SIZE + Tile.SIZE/2)), new Texture("Images/pig.png"), getAnimation());
 		this.player = player;
+		updateTime = new Random().nextInt(20) + 25;
 	}
 	
 	private static Animation getAnimation() {
@@ -27,7 +31,7 @@ public class Pig extends Character {
 	public void update(Map map) {
 		super.update(map);
 		aiCounter++;
-		if(aiCounter == 40) {
+		if(aiCounter == updateTime) {
 			aiCounter = 0;
 			ai(map);
 		}
@@ -67,7 +71,7 @@ public class Pig extends Character {
 	
 	public void goToTile(int row, int column) {
 		Vector2 direction = new Vector2((column * Tile.SIZE + Tile.SIZE/2) - getRectangle().x, (row * Tile.SIZE + Tile.SIZE/2) - getRectangle().y);
-		getSpeed().set(direction.nor().scl(5));
+		getSpeed().set(direction.nor().scl((float) (Math.random()*3 + 4)));
 	}
 	
 	

@@ -2,19 +2,23 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public class Player extends Character implements InputProcessor {
 	
 	private float speed;
 	private int gameStatus=1;
+	private OrthographicCamera camera;
 	
-	public Player() {
+	public Player(OrthographicCamera camera) {
 		super(new Rectangle(8, 6, Tile.SIZE, Tile.SIZE), new Texture("Images/player/1.png"), getAnimation());
+		this.camera = camera;
 	}
 
 	private static Animation getAnimation() {
@@ -75,6 +79,7 @@ public class Player extends Character implements InputProcessor {
 
 	@Override
 	public void update(Map map) {
+		getSpeed().nor().scl(speed);
 		super.update(map);
 		int tileRow = (int) ((getRectangle().y) / Tile.SIZE);
 		int tileCol = (int) ((getRectangle().x) / Tile.SIZE);
@@ -99,16 +104,29 @@ public class Player extends Character implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		Vector3 worldCoordinates = new Vector3(screenX, screenY, 0);
+		Vector3 v = camera.unproject(worldCoordinates);
+		
+		getSpeed().x = v.x - getRectangle().x;
+		getSpeed().y = v.y - getRectangle().y;
+		
 		return false;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		getSpeed().x = 0;
+		getSpeed().y = 0;
 		return false;
 	}
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		Vector3 worldCoordinates = new Vector3(screenX, screenY, 0);
+		Vector3 v = camera.unproject(worldCoordinates);
+		
+		getSpeed().x = v.x - getRectangle().x;
+		getSpeed().y = v.y - getRectangle().y;
 		return false;
 	}
 
