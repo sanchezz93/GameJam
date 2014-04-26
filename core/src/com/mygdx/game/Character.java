@@ -46,10 +46,23 @@ public class Character {
 	}
 	
 	public void move(Vector2 vector, Map map) {
+		if(rectangle.x < 0) {
+			rectangle.x = 1;
+		} else if (rectangle.x > map.columns * Tile.SIZE) {
+			rectangle.x = map.columns * Tile.SIZE - 1;
+		}
+		
+		if(rectangle.y < 0) {
+			rectangle.y = 1;
+		}
+		else if(rectangle.y > map.rows * Tile.SIZE) {
+			rectangle.y = map.rows * Tile.SIZE - 1;
+		}
+
 		rectangle.x += vector.x;
 		rectangle.y += vector.y;
 	}
-	
+
 	protected Rectangle getRectangle() {
 		return rectangle;
 	}
