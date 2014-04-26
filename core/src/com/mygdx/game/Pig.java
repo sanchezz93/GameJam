@@ -67,7 +67,7 @@ public class Pig extends Character {
 	
 	public void goToTile(int row, int column) {
 		Vector2 direction = new Vector2((column * Tile.SIZE + Tile.SIZE/2) - getRectangle().x, (row * Tile.SIZE + Tile.SIZE/2) - getRectangle().y);
-		getSpeed().set(direction.nor().scl(4));
+		getSpeed().set(direction.nor().scl(5));
 	}
 	
 	
