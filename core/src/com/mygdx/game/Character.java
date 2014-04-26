@@ -48,6 +48,14 @@ public class Character {
 	public void move(Vector2 vector, Map map) {
 		rectangle.x += vector.x;
 		rectangle.y += vector.y;
+		
+		if(getRectangle().x - getRectangle().width/4 < 0 || getRectangle().x + getRectangle().width/4 > map.columns * Tile.SIZE) {
+			getRectangle().x -= vector.x;
+		}
+		
+		if(getRectangle().y - getRectangle().height/4 < 0 || getRectangle().y + getRectangle().height/4 > map.rows * Tile.SIZE) {
+			getRectangle().y -= vector.y;
+		}
 	}
 
 	protected Rectangle getRectangle() {

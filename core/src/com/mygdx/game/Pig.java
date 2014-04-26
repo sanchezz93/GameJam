@@ -10,7 +10,7 @@ public class Pig extends Character {
 
 	private Player player;
 	int aiCounter;
-	
+		
 	public Pig(Player player) {
 		super(new Rectangle(14, 2, Tile.SIZE, Tile.SIZE), new Texture("Images/pig.png"), getAnimation());
 		this.player = player;
@@ -27,20 +27,36 @@ public class Pig extends Character {
 	public void update(Map map) {
 		super.update(map);
 		aiCounter++;
-		if(aiCounter == 50) {
+		if(aiCounter == 40) {
 			aiCounter = 0;
-			int maxRow = 0, maxCol = 0;
-			for(int i = 0; i < map.rows; i++) {
-				for(int j = 0; j < map.columns; j++) {
-					if(distanceTo(player, i, j) > distanceTo(player, maxRow, maxCol)) {
-						maxRow = i;
-						maxCol = j;
-					}
+			ai(map);
+		}
+	}
+	
+	public void ai(Map map) {
+		int bestRow = 0, bestCol = 0;
+		for(int i = 0; i < map.rows; i++) {
+			for(int j = 0; j < map.columns; j++) {
+				if(getRank(i, j, player) > getRank(bestRow, bestCol, player)) {
+					bestRow = i;
+					bestCol = j;
 				}
 			}
-			goToTile(maxRow, maxCol);
-			System.out.println(getSpeed());
 		}
+		goToTile(bestRow, bestCol);
+	}
+	
+	private double getRank(int row, int col, Player player) {
+		
+		double dx1 = player.getRectangle().x + player.getRectangle().width/2 - getRectangle().x - getRectangle().width/2;
+		double dy1 = player.getRectangle().y + player.getRectangle().height/2 - getRectangle().y - getRectangle().height/2;
+		double dx2 = col * Tile.SIZE + Tile.SIZE/2 - getRectangle().x - getRectangle().width/2;
+		double dy2 = row * Tile.SIZE + Tile.SIZE/2 - getRectangle().y - getRectangle().height/2;
+		
+		Vector2 v1 = new Vector2((float) dx1, (float) dy1);
+		Vector2 v2 = new Vector2((float) dx2, (float) dy2);
+		
+		return distanceTo(player, row, col) / (v1.dot(v2));
 	}
 	
 	private double distanceTo(Player player, int row, int col) {
@@ -51,7 +67,7 @@ public class Pig extends Character {
 	
 	public void goToTile(int row, int column) {
 		Vector2 direction = new Vector2((column * Tile.SIZE + Tile.SIZE/2) - getRectangle().x, (row * Tile.SIZE + Tile.SIZE/2) - getRectangle().y);
-		getSpeed().set(direction.nor().scl(5));
+		getSpeed().set(direction.nor().scl(2));
 	}
 	
 	

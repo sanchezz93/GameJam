@@ -1,2 +1,2 @@
-dirt.png
-2
+grass.png
+3.5
