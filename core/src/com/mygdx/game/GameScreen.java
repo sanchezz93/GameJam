@@ -21,7 +21,7 @@ public class GameScreen implements Screen, InputProcessor {
 	private Player player;
 	private List<Pig> drove;
 	
-	public static final int PIG_COUNT = 500;
+	public static final int PIG_COUNT = 50;
 	
 	public static final int GAME_PAUSED = 0;
     public static final int GAME_PLAY = 1;

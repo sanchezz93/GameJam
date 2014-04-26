@@ -3,7 +3,6 @@ package com.mygdx.game;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -13,7 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 public class Player extends Character implements InputProcessor {
 	
 	private float speed;
-	private int gameStatus=1;
+	private int gameStatus = 1;
 	private OrthographicCamera camera;
 	
 	public Player(OrthographicCamera camera) {
