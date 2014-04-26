@@ -14,6 +14,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.audio.Music;
 
 public class GameScreen implements Screen, InputProcessor {
 
@@ -23,7 +25,11 @@ public class GameScreen implements Screen, InputProcessor {
 	private Player player;
 	private List<Pig> drove;
 	
-	public static final int PIG_COUNT = 20;
+
+	Sound pigSound = Gdx.audio.newSound(Gdx.files.internal("Music/pigsquel.wav"));
+	Music gameMusic = Gdx.audio.newMusic(Gdx.files.internal("Music/backgroundmusic.wav"));
+	
+	public static final int PIG_COUNT = 30;
 	
 	public static final int GAME_PAUSED = 0;
     public static final int GAME_PLAY = 1;
@@ -57,6 +63,9 @@ public class GameScreen implements Screen, InputProcessor {
 		for(int i = 0; i < PIG_COUNT; i++) {
 			drove.add(new Pig(player, random.nextInt(15) + 1, random.nextInt(7) + 1));
 		}
+		gameMusic.setLooping(true);
+		gameMusic.setVolume(0.7f);
+		gameMusic.play();
 		
 		InputMultiplexer multiplexer = new InputMultiplexer();
 		multiplexer.addProcessor(this);
@@ -111,6 +120,10 @@ public class GameScreen implements Screen, InputProcessor {
 			Pig pig = it.next();
 			pig.update(map);
 			if(pig.grab()) {
+				double area = (pig.getRectangle().width - .5f) * 2f + .5f;
+				area = 2 - area;
+				long id = pigSound.play();
+				pigSound.setPitch(id,(float)area);
 				score++;
 				it.remove();
 			}
