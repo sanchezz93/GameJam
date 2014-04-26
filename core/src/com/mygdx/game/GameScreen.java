@@ -105,7 +105,7 @@ public class GameScreen implements Screen, InputProcessor {
 		for(int i = 0; i < parse.length(); i++){
 			number = new Sprite(TextureManager.getTexture("Images/Numbers/" + parse.charAt(i) + ".png"));
 			number.setFlip(false, true);
-			number.setBounds( camera.position.x - camera.viewportWidth/10 + i/4f, camera.position.y - camera.viewportHeight/2, 16f/8.0f, 9f/8f);
+			number.setBounds( camera.position.x - camera.viewportWidth/10 + 4*i/10f, camera.position.y - camera.viewportHeight/2, 16f/8.0f, 9f/8f);
 			number.draw(batch);
 		}
 	}
@@ -122,9 +122,10 @@ public class GameScreen implements Screen, InputProcessor {
 			if(pig.grab()) {
 				double area = (pig.getRectangle().width - .5f) * 2f + .5f;
 				area = 2 - area;
+				double area2 = (pig.getRectangle().width * pig.getRectangle().height) * 100f;
 				long id = pigSound.play();
 				pigSound.setPitch(id,(float)area);
-				score++;
+				score+=(int)area2;
 				it.remove();
 			}
 		}
