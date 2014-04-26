@@ -26,7 +26,7 @@ public class GameScreen implements Screen, InputProcessor {
 	Sound pigSound = Gdx.audio.newSound(Gdx.files.internal("Music/pigsquel.wav"));
 	Music gameMusic = Gdx.audio.newMusic(Gdx.files.internal("Music/backgroundmusic.wav"));
 	
-	public static final int PIG_COUNT = 50;
+	public static final int PIG_COUNT = 30;
 	
 	public static final int GAME_PAUSED = 0;
     public static final int GAME_PLAY = 1;
@@ -108,7 +108,10 @@ public class GameScreen implements Screen, InputProcessor {
 			Pig pig = it.next();
 			pig.update(map);
 			if(pig.grab()) {
-				pigSound.play();
+				double area = (pig.getRectangle().width - .5f) * 2f + .5f;
+				area = 2 - area;
+				long id = pigSound.play();
+				pigSound.setPitch(id,(float)area);
 				score++;
 				it.remove();
 			}
