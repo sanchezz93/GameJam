@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -20,7 +21,7 @@ public class GameScreen implements Screen, InputProcessor {
 	private Player player;
 	private List<Pig> drove;
 	
-	public static final int PIG_COUNT = 25;
+	public static final int PIG_COUNT = 500;
 	
 	public static final int GAME_PAUSED = 0;
     public static final int GAME_PLAY = 1;
@@ -28,6 +29,7 @@ public class GameScreen implements Screen, InputProcessor {
     Character pauseChar = new Character(new Rectangle(.5f, 2f, 16f, 9f), TextureManager.getTexture("Images/paused.png"), null);
 			
 	private int gameStatus = 1;
+	private int score = 0;
 	
     public int getGameStatus() {
 		return gameStatus;
@@ -93,8 +95,14 @@ public class GameScreen implements Screen, InputProcessor {
 		player.update(map);
 		gameStatus = player.getGameStatus();
 		
-		for(Pig pig: drove) {
+		Iterator<Pig> it = drove.iterator();
+		while(it.hasNext()) {
+			Pig pig = it.next();
 			pig.update(map);
+			if(pig.grab()) {
+				score++;
+				it.remove();
+			}
 		}
 		
 		if(player.getRectangle().x + camera.viewportWidth/2 < map.columns * Tile.SIZE &&
@@ -107,6 +115,7 @@ public class GameScreen implements Screen, InputProcessor {
 		}
 		camera.update();
 	}
+	
 
 	@Override
 	public void resize(int width, int height) {

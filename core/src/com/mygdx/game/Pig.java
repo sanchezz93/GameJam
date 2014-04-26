@@ -16,7 +16,7 @@ public class Pig extends Character {
 	public Pig(Player player, int x, int y) {
 		super(new Rectangle(x, y, (float)(Math.random()*Tile.SIZE + Tile.SIZE/2), (float) (Math.random()*Tile.SIZE + Tile.SIZE/2)), TextureManager.getTexture("Images/pig.png"), getAnimation());
 		this.player = player;
-		updateTime = new Random().nextInt(20) + 25;
+		updateTime = new Random().nextInt(30) + 30;
 	}
 	
 	private static Animation getAnimation() {
@@ -30,16 +30,10 @@ public class Pig extends Character {
 	public void update(Map map) {
 		super.update(map);
 		
-		
 		aiCounter++;
 		if(aiCounter == updateTime) {
 			aiCounter = 0;
 			ai(map);
-		}
-		
-		if(grab()){
-			this.getSpeed().x=0;
-			this.getSpeed().y=0;
 		}
 		
 	}
@@ -48,8 +42,11 @@ public class Pig extends Character {
 		float xdiff = this.getRectangle().x + this.getRectangle().width/2 - player.getRectangle().x - player.getRectangle().width/2;
 		float ydiff = this.getRectangle().y - this.getRectangle().height/2 - player.getRectangle().y + player.getRectangle().height/2;
 		int distance = (int) Math.sqrt(xdiff*xdiff+ydiff*ydiff);
-		if(distance <= this.getRectangle().width/5)
+		if(distance <= this.getRectangle().width/5) {
+			this.getSpeed().x=0;
+			this.getSpeed().y=0;
 			return true;
+		}
 		return false;
 	}
 	
