@@ -6,7 +6,6 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -58,16 +57,9 @@ public class GameScreen implements Screen, InputProcessor {
 		update();
 		switch(gameStatus){
 		case(GAME_MENU):
-		case(GAME_PAUSED):
-			Gdx.gl.glClearColor(0, 0, 0, 1);
-			String pause="Paused.";
-			batch.setProjectionMatrix(camera.combined);
-			batch.begin();
-			pauseChar.render(batch);
-			batch.end();
-			break;
-			
+		case(GAME_PAUSED):			
 		case(GAME_PLAY):
+			
 			
 			batch.setProjectionMatrix(camera.combined);
 			batch.begin();
