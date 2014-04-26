@@ -1,13 +1,11 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 
 public class GameScreen implements Screen, InputProcessor {
 
@@ -48,6 +46,10 @@ public class GameScreen implements Screen, InputProcessor {
 		map.update();
 		player.update();
 		pig.update();
+		
+		camera.position.x = player.getRectangle().x;
+		camera.position.y = player.getRectangle().y;
+		camera.update();
 	}
 
 	@Override
@@ -87,28 +89,6 @@ public class GameScreen implements Screen, InputProcessor {
 
 	@Override
 	public boolean keyUp(int keycode) {
-		Vector2 vector = new Vector2();
-		switch(keycode) {
-		case Input.Keys.RIGHT:
-			vector.x += .5;
-			break;
-		case Input.Keys.LEFT:
-			vector.x -= .5;
-			break;
-		case Input.Keys.UP:
-			vector.y -= .5;
-			break;
-		case Input.Keys.DOWN:
-			vector.y += .5;
-			break;
-		}
-		
-		if(vector.x != 0 || vector.y != 0) {
-			camera.translate(vector);
-			camera.update();
-			return true;
-		}
-		
 		return false;
 	}
 

@@ -10,7 +10,6 @@ public class GameObjectFactory {
 	private GameObjectFactory() { }
 	
 	public static Map createMap(int id) {
-		
 		FileHandle handle = Gdx.files.internal("data/maps/" + id + ".txt");
 		String text = handle.readString();
 				

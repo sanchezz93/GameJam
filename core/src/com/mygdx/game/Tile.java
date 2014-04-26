@@ -5,16 +5,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Tile {
 
-	public static final float WIDTH = 1.12f, HEIGHT = .63f;
+	public static final float SIZE = 1f;
 	private boolean isObstacle;
 	private Texture texture;
 	
 	public Tile(boolean isObstacle) {
 		this.setObstacle(isObstacle);
 		if(isObstacle) {
-			texture = new Texture("images/cuadro_Blanco.png");
+			texture = new Texture("images/rocks.png");
 		} else {
-			texture = new Texture("images/cuadro_Negro.png");
+			texture = new Texture("images/grass.png");
 		}
 	}
 
@@ -27,7 +27,7 @@ public class Tile {
 	}
 
 	public void render(SpriteBatch batch, float x, float y) {
-		batch.draw(texture, x, y, Tile.WIDTH, Tile.HEIGHT);
+		batch.draw(texture, x, y, Tile.SIZE, Tile.SIZE);
 	}
 	
 }
