@@ -103,9 +103,9 @@ public class GameScreen implements Screen, InputProcessor {
 		
 		String parse = Integer.toString(score2);
 		for(int i = 0; i < parse.length(); i++){
-			number = new Sprite(TextureManager.getTexture("Images/Numbers/" + 1 + ".png"));
+			number = new Sprite(TextureManager.getTexture("Images/Numbers/" + parse.charAt(i) + ".png"));
 			number.setFlip(false, true);
-			number.setBounds( camera.position.x - camera.viewportWidth/2, camera.position.y - camera.viewportHeight/2, 16f/16.0f, 9f/16f);
+			number.setBounds( camera.position.x - camera.viewportWidth/10 + i/4f, camera.position.y - camera.viewportHeight/2, 16f/8.0f, 9f/8f);
 			number.draw(batch);
 		}
 	}
