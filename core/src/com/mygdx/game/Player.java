@@ -112,7 +112,6 @@ public class Player extends Character implements InputProcessor {
 //		}
 
 
-		
 		if(map.getTile( (int) (getRectangle().y/Tile.SIZE), (int) (getRectangle().x/Tile.SIZE)).isObstacle()){
 			getRectangle().x -= vector.x;
 			getRectangle().y -= vector.y;
