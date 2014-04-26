@@ -27,30 +27,31 @@ public class Pig extends Character {
 	public void update(Map map) {
 		super.update(map);
 		aiCounter++;
-		if(aiCounter == 200) {
+		if(aiCounter == 50) {
 			aiCounter = 0;
 			int maxRow = 0, maxCol = 0;
 			for(int i = 0; i < map.rows; i++) {
 				for(int j = 0; j < map.columns; j++) {
-					if(distanceTo(i, j) > distanceTo(maxRow, maxCol)) {
+					if(distanceTo(player, i, j) > distanceTo(player, maxRow, maxCol)) {
 						maxRow = i;
 						maxCol = j;
 					}
 				}
 			}
 			goToTile(maxRow, maxCol);
+			System.out.println(getSpeed());
 		}
 	}
 	
-	private double distanceTo(int row, int col) {
-		double dx = (col * Tile.SIZE + Tile.SIZE/2) - getRectangle().x;
-		double dy = (row * Tile.SIZE + Tile.SIZE/2) - getRectangle().y;
+	private double distanceTo(Player player, int row, int col) {
+		double dx = (col * Tile.SIZE + Tile.SIZE/2) - player.getRectangle().x;
+		double dy = (row * Tile.SIZE + Tile.SIZE/2) - player.getRectangle().y;
 		return Math.sqrt(dx*dx + dy*dy);
 	}
 	
 	public void goToTile(int row, int column) {
 		Vector2 direction = new Vector2((column * Tile.SIZE + Tile.SIZE/2) - getRectangle().x, (row * Tile.SIZE + Tile.SIZE/2) - getRectangle().y);
-		getSpeed().set(direction.nor().scl(3));
+		getSpeed().set(direction.nor().scl(5));
 	}
 	
 	

@@ -6,10 +6,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Character implements InputProcessor {
 	
 	private float speed;
+	private int gameStatus=1;
 	
 	public Player() {
 		super(new Rectangle(8, 6, Tile.SIZE, Tile.SIZE), new Texture("Images/player/1.png"), getAnimation());
@@ -60,6 +62,12 @@ public class Player extends Character implements InputProcessor {
 		case Input.Keys.S:
 			getSpeed().y = 0;
 			return true;
+		case Input.Keys.P:
+			this.setGameStatus(0);
+			return true;
+		case Input.Keys.L:
+			this.setGameStatus(1);
+			return true;
 		}
 		
 		return false;
@@ -72,6 +80,24 @@ public class Player extends Character implements InputProcessor {
 		int tileCol = (int) ((getRectangle().x) / Tile.SIZE);
 		speed = map.getTile(tileRow, tileCol).getSpeed();
 		getSpeed().nor().scl(speed);
+	}
+
+	@Override
+	public void move(Vector2 vector, Map map) {
+		super.move(vector, map);
+		
+		if(getRectangle().x - getRectangle().width/4 < 0 || getRectangle().x + getRectangle().width/4 > map.columns * Tile.SIZE) {
+			getRectangle().x -= vector.x;
+		}
+		
+		if(getRectangle().y - getRectangle().height/4 < 0 || getRectangle().y + getRectangle().height/4 > map.rows * Tile.SIZE) {
+			getRectangle().y -= vector.y;
+		}
+		
+		if(map.getTile( (int) (getRectangle().y/Tile.SIZE), (int) (getRectangle().x/Tile.SIZE)).isObstacle()){
+			getRectangle().x -= vector.x;
+			getRectangle().y -= vector.y;
+		}
 	}
 
 	@Override
@@ -102,6 +128,14 @@ public class Player extends Character implements InputProcessor {
 	@Override
 	public boolean scrolled(int amount) {
 		return false;
+	}
+
+	public int getGameStatus() {
+		return gameStatus;
+	}
+
+	public void setGameStatus(int gameStatus) {
+		this.gameStatus = gameStatus;
 	}
 
 }

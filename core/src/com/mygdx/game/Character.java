@@ -49,7 +49,7 @@ public class Character {
 		rectangle.x += vector.x;
 		rectangle.y += vector.y;
 	}
-	
+
 	protected Rectangle getRectangle() {
 		return rectangle;
 	}
