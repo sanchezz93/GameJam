@@ -17,7 +17,7 @@ public class Player extends Character implements InputProcessor {
 	private OrthographicCamera camera;
 	
 	public Player(OrthographicCamera camera) {
-		super(new Rectangle(8, 6, Tile.SIZE, Tile.SIZE), TextureManager.getTexture("Images/player/1.png"), getAnimation());
+		super(new Rectangle(8, 6, 1, 1), TextureManager.getTexture("Images/player/1.png"), getAnimation());
 		this.camera = camera;
 	}
 

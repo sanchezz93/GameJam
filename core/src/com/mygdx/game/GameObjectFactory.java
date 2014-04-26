@@ -20,7 +20,7 @@ public class GameObjectFactory {
 			Tile tiles[][] = new Tile[rows][columns];
 			
 			for(int i = 0; i < rows; i++) {
-				for(int j = 0; j < rows; j++) {
+				for(int j = 0; j < columns; j++) {
 					tiles[i][j] = createTile(scanner.nextInt());
 				}
 			}
