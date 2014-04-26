@@ -17,7 +17,6 @@ public class Character {
 		this.rectangle = rectangle;
 		this.sprite = new Sprite(texture);
 		speed = new Vector2();
-		
 	}
 	
 	public void render(SpriteBatch batch) {
