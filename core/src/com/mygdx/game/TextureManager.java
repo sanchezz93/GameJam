@@ -21,4 +21,10 @@ public class TextureManager {
 		return texture;
 	}
 	
+	public static void dispose() {
+		for(Texture texture : textures.values()) {
+			texture.dispose();
+		}
+	}
+	
 }

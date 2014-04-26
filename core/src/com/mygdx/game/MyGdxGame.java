@@ -17,4 +17,12 @@ public class MyGdxGame extends Game {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		getScreen().render(Gdx.graphics.getDeltaTime());
 	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		TextureManager.dispose();
+	}
+	
+	
 }

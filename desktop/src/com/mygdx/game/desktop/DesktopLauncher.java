@@ -7,8 +7,9 @@ import com.mygdx.game.MyGdxGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 800;
-		config.height = 800*9/16;
+		config.width = 1200;
+		config.height = 1200*9/16;
+		config.title = "Pigs Out";
 		new LwjglApplication(new MyGdxGame(), config);
 	}
 }

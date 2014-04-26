@@ -16,7 +16,7 @@ public class Pig extends Character {
 	public Pig(Player player, int x, int y) {
 		super(new Rectangle(x, y, (float)(Math.random()*.5f + .5f), (float) (Math.random()*.5f + .5f)), TextureManager.getTexture("Images/pig.png"), getAnimation());
 		this.player = player;
-		updateTime = new Random().nextInt(30) + 30;
+		updateTime = new Random().nextInt(20) + 20;
 	}
 	
 	private static Animation getAnimation() {
