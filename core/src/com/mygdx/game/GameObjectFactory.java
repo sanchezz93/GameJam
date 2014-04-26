@@ -36,11 +36,10 @@ public class GameObjectFactory {
 			String textureFileName = scanner.next();
 			
 			Texture texture = new Texture("Images/Tiles/" + textureFileName);
-			System.out.println(texture);
 
-			boolean isObstacle = scanner.nextInt() == 1 ? true : false;
+			float speed = scanner.nextFloat();
 			
-			return new Tile(texture, isObstacle);
+			return new Tile(texture, speed);
 		}
 	}
 	

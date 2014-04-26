@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Player extends Character implements InputProcessor {
 	
+	private float speed;
+	
 	public Player() {
 		super(new Rectangle(8, 6, Tile.SIZE, Tile.SIZE), new Texture("Images/player/1.png"), getAnimation());
 	}
@@ -27,16 +29,16 @@ public class Player extends Character implements InputProcessor {
 	public boolean keyDown(int keycode) {
 		switch(keycode) {
 		case Input.Keys.D:
-			getSpeed().x = 3;
+			getSpeed().x = 1;
 			return true;
 		case Input.Keys.A:
-			getSpeed().x = -3;
+			getSpeed().x = -1;
 			return true;
 		case Input.Keys.W:
-			getSpeed().y = -3;
+			getSpeed().y = -1;
 			return true;
 		case Input.Keys.S:
-			getSpeed().y = 3;
+			getSpeed().y = 1;
 			return true;
 		}
 		
@@ -61,6 +63,15 @@ public class Player extends Character implements InputProcessor {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public void update(Map map) {
+		super.update(map);
+		int tileRow = (int) ((getRectangle().y) / Tile.SIZE);
+		int tileCol = (int) ((getRectangle().x) / Tile.SIZE);
+		speed = map.getTile(tileRow, tileCol).getSpeed();
+		getSpeed().nor().scl(speed);
 	}
 
 	@Override
