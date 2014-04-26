@@ -9,7 +9,6 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -21,10 +20,12 @@ public class GameScreen implements Screen, InputProcessor {
 	private Player player;
 	private List<Pig> drove;
 	
+	public static final int PIG_COUNT = 25;
+	
 	public static final int GAME_PAUSED = 0;
     public static final int GAME_PLAY = 1;
     public static final int GAME_MENU = 2;
-    Character pauseChar = new Character(new Rectangle(.5f, 2f, 16f, 9f), new Texture("Images/paused.png"), null);
+    Character pauseChar = new Character(new Rectangle(.5f, 2f, 16f, 9f), TextureManager.getTexture("Images/paused.png"), null);
 			
 	private int gameStatus = 1;
 	
@@ -49,7 +50,7 @@ public class GameScreen implements Screen, InputProcessor {
 		drove = new ArrayList<>();
 		
 		Random random = new Random();
-		for(int i = 0; i < 20; i++) {
+		for(int i = 0; i < PIG_COUNT; i++) {
 			drove.add(new Pig(player, random.nextInt(15) + 1, random.nextInt(7) + 1));
 		}
 		

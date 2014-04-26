@@ -2,7 +2,6 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class MenuScreen implements Screen, InputProcessor {
@@ -10,7 +9,7 @@ public class MenuScreen implements Screen, InputProcessor {
 	private Sprite playButton;
 	
 	public MenuScreen() {
-		playButton = new Sprite(new Texture("sdfkjsd"));
+		playButton = new Sprite(TextureManager.getTexture("sdfkjsd"));
 		playButton.setBounds(4, 4, 3, 3);
 	}
 	

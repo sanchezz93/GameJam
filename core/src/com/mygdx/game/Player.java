@@ -17,7 +17,7 @@ public class Player extends Character implements InputProcessor {
 	private OrthographicCamera camera;
 	
 	public Player(OrthographicCamera camera) {
-		super(new Rectangle(8, 6, Tile.SIZE, Tile.SIZE), new Texture("Images/player/1.png"), getAnimation());
+		super(new Rectangle(8, 6, Tile.SIZE, Tile.SIZE), TextureManager.getTexture("Images/player/1.png"), getAnimation());
 		this.camera = camera;
 	}
 
@@ -25,7 +25,7 @@ public class Player extends Character implements InputProcessor {
 		TextureRegion frames[] = new TextureRegion[6];
 		
 		for(int i = 1; i <= 6; i++) {
-			frames[i-1] = new TextureRegion(new Texture("Images/player/" + i + ".png"));
+			frames[i-1] = new TextureRegion(TextureManager.getTexture("Images/player/" + i + ".png"));
 		}
 		
 		return new Animation(.1f, frames);

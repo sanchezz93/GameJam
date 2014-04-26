@@ -35,7 +35,7 @@ public class GameObjectFactory {
 		try(Scanner scanner = new Scanner(handle.readString())) {
 			String textureFileName = scanner.next();
 			
-			Texture texture = new Texture("Images/Tiles/" + textureFileName);
+			Texture texture = TextureManager.getTexture("Images/Tiles/" + textureFileName);
 
 			float speed = scanner.nextFloat();
 			

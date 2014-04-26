@@ -2,7 +2,6 @@ package com.mygdx.game;
 
 import java.util.Random;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -15,7 +14,7 @@ public class Pig extends Character {
 	
 		
 	public Pig(Player player, int x, int y) {
-		super(new Rectangle(x, y, (float)(Math.random()*Tile.SIZE + Tile.SIZE/2), (float) (Math.random()*Tile.SIZE + Tile.SIZE/2)), new Texture("Images/pig.png"), getAnimation());
+		super(new Rectangle(x, y, (float)(Math.random()*Tile.SIZE + Tile.SIZE/2), (float) (Math.random()*Tile.SIZE + Tile.SIZE/2)), TextureManager.getTexture("Images/pig.png"), getAnimation());
 		this.player = player;
 		updateTime = new Random().nextInt(20) + 25;
 	}
@@ -23,7 +22,7 @@ public class Pig extends Character {
 	private static Animation getAnimation() {
 		TextureRegion frames[] = new TextureRegion[1];
 		
-		frames[0] = new TextureRegion(new Texture("Images/pig.png"));
+		frames[0] = new TextureRegion(TextureManager.getTexture("Images/pig.png"));
 		
 		return new Animation(.1f, frames);
 	}
@@ -31,15 +30,16 @@ public class Pig extends Character {
 	public void update(Map map) {
 		super.update(map);
 		
-		if(grab()){
-			this.getSpeed().x=0;
-			this.getSpeed().y=0;
-			
-		}
+		
 		aiCounter++;
 		if(aiCounter == updateTime) {
 			aiCounter = 0;
 			ai(map);
+		}
+		
+		if(grab()){
+			this.getSpeed().x=0;
+			this.getSpeed().y=0;
 		}
 		
 	}
@@ -48,7 +48,7 @@ public class Pig extends Character {
 		float xdiff = this.getRectangle().x + this.getRectangle().width/2 - player.getRectangle().x - player.getRectangle().width/2;
 		float ydiff = this.getRectangle().y - this.getRectangle().height/2 - player.getRectangle().y + player.getRectangle().height/2;
 		int distance = (int) Math.sqrt(xdiff*xdiff+ydiff*ydiff);
-		if(distance <= this.getRectangle().width/3)
+		if(distance <= this.getRectangle().width/5)
 			return true;
 		return false;
 	}
