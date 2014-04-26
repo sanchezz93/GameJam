@@ -94,6 +94,25 @@ public class Player extends Character implements InputProcessor {
 			getRectangle().y -= vector.y;
 		}
 		
+//		int ix;
+//		int jx;
+//		if(vector.x >= 0){
+//			ix = 1;
+//		} else ix = -1;
+//		if(vector.y >= 0){
+//			jx = 1;
+//		} else jx = -1;
+//		
+//
+//		while(map.getTile( 
+//				(int) ((getRectangle().y + getRectangle().height/4f * ix)/Tile.SIZE), 
+//				(int) ((getRectangle().x + getRectangle().width/4f * jx)/Tile.SIZE)).isObstacle()){
+//			getRectangle().x -= vector.x;//* ix;
+//			getRectangle().y -= vector.y;// * jx;
+//		}
+
+
+		
 		if(map.getTile( (int) (getRectangle().y/Tile.SIZE), (int) (getRectangle().x/Tile.SIZE)).isObstacle()){
 			getRectangle().x -= vector.x;
 			getRectangle().y -= vector.y;
