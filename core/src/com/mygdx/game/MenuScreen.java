@@ -1,20 +1,35 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MenuScreen implements Screen, InputProcessor {
 
 	private Sprite playButton;
+	private SpriteBatch batch;
+	private OrthographicCamera camera;
 	
 	public MenuScreen() {
-		playButton = new Sprite(TextureManager.getTexture("sdfkjsd"));
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, 16, 9);
+		batch = new SpriteBatch();
+		playButton = new Sprite(new Texture("Images/Menu/play.png"));
 		playButton.setBounds(4, 4, 3, 3);
+		playButton.setOrigin(8f, 4.5f);
 	}
 	
 	@Override
 	public void render(float delta) {
+
+		batch.setProjectionMatrix(camera.combined);
+		batch.begin();
+		playButton.draw(batch);
+		batch.end();
 		
 	}
 

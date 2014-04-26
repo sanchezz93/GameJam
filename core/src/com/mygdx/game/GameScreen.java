@@ -10,6 +10,8 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.audio.Sound;
@@ -23,6 +25,7 @@ public class GameScreen implements Screen, InputProcessor {
 	private Player player;
 	private List<Pig> drove;
 	
+
 	Sound pigSound = Gdx.audio.newSound(Gdx.files.internal("Music/pigsquel.wav"));
 	Music gameMusic = Gdx.audio.newMusic(Gdx.files.internal("Music/backgroundmusic.wav"));
 	
@@ -75,15 +78,7 @@ public class GameScreen implements Screen, InputProcessor {
 		update();
 		switch(gameStatus){
 		case(GAME_MENU):
-		case(GAME_PAUSED):
-			Gdx.gl.glClearColor(0, 0, 0, 1);
-			String pause="Paused.";
-			batch.setProjectionMatrix(camera.combined);
-			batch.begin();
-			pauseChar.render(batch);
-			batch.end();
-			break;
-			
+		case(GAME_PAUSED):			
 		case(GAME_PLAY):
 			
 			batch.setProjectionMatrix(camera.combined);
@@ -93,8 +88,25 @@ public class GameScreen implements Screen, InputProcessor {
 				pig.render(batch);
 			}
 			player.render(batch);
+			printScore(score);
 			batch.end();
+			
+			
+			
 			break;
+		}
+	}
+
+	private void printScore(int score2) {
+		
+		Sprite number;
+		
+		String parse = Integer.toString(score2);
+		for(int i = 0; i < parse.length(); i++){
+			number = new Sprite(TextureManager.getTexture("Images/Numbers/" + parse.charAt(i) + ".png"));
+			number.setFlip(false, true);
+			number.setBounds( camera.position.x - camera.viewportWidth/10 + i/4f, camera.position.y - camera.viewportHeight/2, 16f/8.0f, 9f/8f);
+			number.draw(batch);
 		}
 	}
 

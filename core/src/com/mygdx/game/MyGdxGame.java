@@ -5,10 +5,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
 public class MyGdxGame extends Game {
-	
+	public enum GameState {
+		GAME_PAUSED, GAME_PLAYING, GAME_MENU 
+	}
+	GameState gameState = GameState.GAME_PLAYING;
+
 	@Override
 	public void create () {
-		setScreen(new GameScreen(GameObjectFactory.createMap(1)));
+		switch (gameState){
+		case GAME_PAUSED:
+			break;
+		case GAME_PLAYING:
+			setScreen(new GameScreen(GameObjectFactory.createMap(1)));
+			break;
+		case GAME_MENU:
+			setScreen(new MenuScreen());
+		}
+
 	}
 
 	@Override
