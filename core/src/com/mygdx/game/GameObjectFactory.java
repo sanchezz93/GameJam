@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 
 public class GameObjectFactory {
 
@@ -11,9 +12,8 @@ public class GameObjectFactory {
 	
 	public static Map createMap(int id) {
 		FileHandle handle = Gdx.files.internal("data/maps/" + id + ".txt");
-		String text = handle.readString();
 				
-		try(Scanner scanner = new Scanner(text)) {
+		try(Scanner scanner = new Scanner(handle.readString())) {
 			int rows = scanner.nextInt();
 			int columns = scanner.nextInt();
 			
@@ -21,14 +21,26 @@ public class GameObjectFactory {
 			
 			for(int i = 0; i < rows; i++) {
 				for(int j = 0; j < rows; j++) {
-					int k = scanner.nextInt();
-					System.out.println(k);
-					boolean isObstacle = k == 1 ? true : false;
-					tiles[i][j] = new Tile(isObstacle);
+					tiles[i][j] = createTile(scanner.nextInt());
 				}
 			}
 			
 			return new Map(tiles);
+		}
+	}
+	
+	public static Tile createTile(int id) {
+		FileHandle handle = Gdx.files.internal("data/tiles/" + id + ".txt");
+		
+		try(Scanner scanner = new Scanner(handle.readString())) {
+			String textureFileName = scanner.next();
+			
+			Texture texture = new Texture("Images/Tiles/" + textureFileName);
+			System.out.println(texture);
+
+			boolean isObstacle = scanner.nextInt() == 1 ? true : false;
+			
+			return new Tile(texture, isObstacle);
 		}
 	}
 	

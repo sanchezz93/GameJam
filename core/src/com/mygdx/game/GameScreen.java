@@ -21,7 +21,7 @@ public class GameScreen implements Screen, InputProcessor {
 		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(true, 16, 9);
-		
+				
 		player = new Player();
 		pig = new Pig();
 		
@@ -34,6 +34,7 @@ public class GameScreen implements Screen, InputProcessor {
 	@Override
 	public void render(float delta) {
 		update();
+		
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		map.render(batch);
@@ -47,8 +48,14 @@ public class GameScreen implements Screen, InputProcessor {
 		player.update();
 		pig.update();
 		
-		camera.position.x = player.getRectangle().x;
-		camera.position.y = player.getRectangle().y;
+		if(player.getRectangle().x + camera.viewportWidth/2 < map.columns * Tile.SIZE &&
+		   player.getRectangle().x - camera.viewportWidth/2 >= 0) {
+			camera.position.x = player.getRectangle().x + player.getRectangle().width/2;
+		}
+		if(player.getRectangle().y + camera.viewportHeight/2 < map.rows * Tile.SIZE &&
+		   player.getRectangle().y - camera.viewportHeight/2 >= 0) {
+			camera.position.y = player.getRectangle().y + player.getRectangle().height/2;
+		}
 		camera.update();
 	}
 

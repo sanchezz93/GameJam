@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -9,17 +10,23 @@ import com.badlogic.gdx.math.Vector2;
 public class Character {
 
 	private Rectangle rectangle;
-	private Texture texture;
+	private Sprite sprite;
 	private Vector2 speed;
 
 	public Character(Rectangle rectangle, Texture texture) {
 		this.rectangle = rectangle;
-		this.texture = texture;
+		this.sprite = new Sprite(texture);
 		speed = new Vector2();
+		
 	}
 	
 	public void render(SpriteBatch batch) {
-		batch.draw(texture, rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+		sprite.setOrigin(rectangle.width/2, rectangle.height/2);
+		if(!speed.equals(Vector2.Zero)) {
+			sprite.setRotation((float) Math.toDegrees(Math.atan2(speed.y, speed.x)) + 90);
+		}
+		sprite.setBounds(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+		sprite.draw(batch);
 	}
 	
 	public void update() {
