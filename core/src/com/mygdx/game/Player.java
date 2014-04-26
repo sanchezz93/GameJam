@@ -3,12 +3,24 @@ package com.mygdx.game;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Player extends Character implements InputProcessor {
-
+	
 	public Player() {
-		super(new Rectangle(8, 6, Tile.SIZE, Tile.SIZE), new Texture("Images/player/1.png"));
+		super(new Rectangle(8, 6, Tile.SIZE, Tile.SIZE), new Texture("Images/player/1.png"), getAnimation());
+	}
+
+	private static Animation getAnimation() {
+		TextureRegion frames[] = new TextureRegion[6];
+		
+		for(int i = 1; i <= 6; i++) {
+			frames[i-1] = new TextureRegion(new Texture("Images/player/" + i + ".png"));
+		}
+		
+		return new Animation(.1f, frames);
 	}
 
 	@Override
