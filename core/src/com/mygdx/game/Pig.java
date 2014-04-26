@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.graphics.Texture;
+import java.util.Random;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -9,28 +10,44 @@ import com.badlogic.gdx.math.Vector2;
 public class Pig extends Character {
 
 	private Player player;
-	int aiCounter;
+	private int aiCounter, updateTime;
+	
 		
-	public Pig(Player player) {
-		super(new Rectangle(14, 2, Tile.SIZE, Tile.SIZE), new Texture("Images/pig.png"), getAnimation());
+	public Pig(Player player, int x, int y) {
+		super(new Rectangle(x, y, (float)(Math.random()*.5f + .5f), (float) (Math.random()*.5f + .5f)), TextureManager.getTexture("Images/pig.png"), getAnimation());
 		this.player = player;
+		updateTime = new Random().nextInt(30) + 30;
 	}
 	
 	private static Animation getAnimation() {
 		TextureRegion frames[] = new TextureRegion[1];
 		
-		frames[0] = new TextureRegion(new Texture("Images/pig.png"));
+		frames[0] = new TextureRegion(TextureManager.getTexture("Images/pig.png"));
 		
 		return new Animation(.1f, frames);
 	}
 	
 	public void update(Map map) {
 		super.update(map);
+		
 		aiCounter++;
-		if(aiCounter == 40) {
+		if(aiCounter == updateTime) {
 			aiCounter = 0;
 			ai(map);
 		}
+		
+	}
+	
+	public boolean grab() {
+		float xdiff = this.getRectangle().x + this.getRectangle().width/2 - player.getRectangle().x - player.getRectangle().width/2;
+		float ydiff = this.getRectangle().y - this.getRectangle().height/2 - player.getRectangle().y + player.getRectangle().height/2;
+		int distance = (int) Math.sqrt(xdiff*xdiff+ydiff*ydiff);
+		if(distance <= this.getRectangle().width/5) {
+			this.getSpeed().x=0;
+			this.getSpeed().y=0;
+			return true;
+		}
+		return false;
 	}
 	
 	public void ai(Map map) {
@@ -67,7 +84,7 @@ public class Pig extends Character {
 	
 	public void goToTile(int row, int column) {
 		Vector2 direction = new Vector2((column * Tile.SIZE + Tile.SIZE/2) - getRectangle().x, (row * Tile.SIZE + Tile.SIZE/2) - getRectangle().y);
-		getSpeed().set(direction.nor().scl(5));
+		getSpeed().set(direction.nor().scl((float) (Math.random()*3 + 4)));
 	}
 	
 	

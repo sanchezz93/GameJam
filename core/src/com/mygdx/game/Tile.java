@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Tile {
 
-	public static final float SIZE = 1f;
+	public static final float SIZE = .9f;
 	private Texture texture;
 	private float speed;
 	
