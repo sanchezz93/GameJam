@@ -17,6 +17,11 @@ public class Map {
 			}
 		}
 	}
+	
+	public Tile getTile(int row, int column){
+		return this.tiles[row][column];
+	}
+	
 
 	public void update() {
 		

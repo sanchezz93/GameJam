@@ -44,8 +44,8 @@ public class GameScreen implements Screen, InputProcessor {
 	
 	public void update() {
 		map.update();
-		player.update();
-		pig.update();
+		player.update(map);
+		pig.update(map);
 		
 		camera.position.x = player.getRectangle().x;
 		camera.position.y = player.getRectangle().y;

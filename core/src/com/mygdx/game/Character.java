@@ -22,9 +22,12 @@ public class Character {
 		batch.draw(texture, rectangle.x, rectangle.y, rectangle.width, rectangle.height);
 	}
 	
-	public void update() {
-		rectangle.x += speed.x * Gdx.graphics.getDeltaTime();
-		rectangle.y += speed.y * Gdx.graphics.getDeltaTime();
+	public void update(Map map) {
+		move(speed.cpy().scl(Gdx.graphics.getDeltaTime()), map);
+	}
+	
+	public void move(Vector2 vector, Map map) {
+		
 	}
 	
 	protected Rectangle getRectangle() {
@@ -34,5 +37,7 @@ public class Character {
 	protected Vector2 getSpeed() {
 		return speed;
 	}
+	
+	
 	
 }
