@@ -46,21 +46,21 @@ public class Character {
 	}
 	
 	public void move(Vector2 vector, Map map) {
-		if(rectangle.x < 0) {
-			rectangle.x = 1;
-		} else if (rectangle.x > map.columns * Tile.SIZE) {
-			rectangle.x = map.columns * Tile.SIZE - 1;
-		}
-		
-		if(rectangle.y < 0) {
-			rectangle.y = 1;
-		}
-		else if(rectangle.y > map.rows * Tile.SIZE) {
-			rectangle.y = map.rows * Tile.SIZE - 1;
-		}
-
 		rectangle.x += vector.x;
 		rectangle.y += vector.y;
+		
+		if(rectangle.x - rectangle.width/4 < 0 || rectangle.x + rectangle.width/4 > map.columns * Tile.SIZE) {
+			rectangle.x -= vector.x;
+		}
+		
+		if(rectangle.y - rectangle.height/4 < 0 || rectangle.y + rectangle.height/4 > map.rows * Tile.SIZE) {
+			rectangle.y -= vector.y;
+		}
+		
+		if(map.getTile( (int) (rectangle.y/Tile.SIZE), (int) (rectangle.x/Tile.SIZE)).isObstacle()){
+			rectangle.x -= vector.x;
+			rectangle.y -= vector.y;
+		}
 	}
 
 	protected Rectangle getRectangle() {

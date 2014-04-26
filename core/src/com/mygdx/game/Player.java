@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class Player extends Character implements InputProcessor {
 	
 	private float speed;
+	private int gameStatus=1;
 	
 	public Player() {
 		super(new Rectangle(8, 6, Tile.SIZE, Tile.SIZE), new Texture("Images/player/1.png"), getAnimation());
@@ -60,6 +61,12 @@ public class Player extends Character implements InputProcessor {
 		case Input.Keys.S:
 			getSpeed().y = 0;
 			return true;
+		case Input.Keys.P:
+			this.setGameStatus(0);
+			return true;
+		case Input.Keys.L:
+			this.setGameStatus(1);
+			return true;
 		}
 		
 		return false;
@@ -102,6 +109,14 @@ public class Player extends Character implements InputProcessor {
 	@Override
 	public boolean scrolled(int amount) {
 		return false;
+	}
+
+	public int getGameStatus() {
+		return gameStatus;
+	}
+
+	public void setGameStatus(int gameStatus) {
+		this.gameStatus = gameStatus;
 	}
 
 }
