@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,13 +14,23 @@ public class GameScreen implements Screen, InputProcessor {
 	private SpriteBatch batch;
 	private Map map;
 	private OrthographicCamera camera;
+	private Player player;
+	private Pig pig;
 	
 	public GameScreen(Map map) {
 		batch = new SpriteBatch();
 		this.map = map;
+		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(true, 16, 9);
-		Gdx.input.setInputProcessor(this);
+		
+		player = new Player();
+		pig = new Pig();
+		
+		InputMultiplexer multiplexer = new InputMultiplexer();
+		multiplexer.addProcessor(this);
+		multiplexer.addProcessor(player);
+		Gdx.input.setInputProcessor(multiplexer);
 	}
 	
 	@Override
@@ -28,11 +39,15 @@ public class GameScreen implements Screen, InputProcessor {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		map.render(batch);
+		pig.render(batch);
+		player.render(batch);
 		batch.end();
 	}
 	
 	public void update() {
 		map.update();
+		player.update();
+		pig.update();
 	}
 
 	@Override
@@ -72,7 +87,6 @@ public class GameScreen implements Screen, InputProcessor {
 
 	@Override
 	public boolean keyUp(int keycode) {
-		
 		Vector2 vector = new Vector2();
 		switch(keycode) {
 		case Input.Keys.RIGHT:
@@ -89,8 +103,11 @@ public class GameScreen implements Screen, InputProcessor {
 			break;
 		}
 		
-		camera.translate(vector);
-		camera.update();
+		if(vector.x != 0 || vector.y != 0) {
+			camera.translate(vector);
+			camera.update();
+			return true;
+		}
 		
 		return false;
 	}
