@@ -10,10 +10,8 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-<<<<<<< HEAD
 import com.badlogic.gdx.graphics.Texture;
-=======
->>>>>>> b4b21c4675011e95664d79a3bf855d57072a4895
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -25,7 +23,7 @@ public class GameScreen implements Screen, InputProcessor {
 	private Player player;
 	private List<Pig> drove;
 	
-	public static final int PIG_COUNT = 500;
+	public static final int PIG_COUNT = 20;
 	
 	public static final int GAME_PAUSED = 0;
     public static final int GAME_PLAY = 1;
@@ -74,7 +72,6 @@ public class GameScreen implements Screen, InputProcessor {
 		case(GAME_PAUSED):			
 		case(GAME_PLAY):
 			
-			
 			batch.setProjectionMatrix(camera.combined);
 			batch.begin();
 			map.render(batch);
@@ -82,8 +79,25 @@ public class GameScreen implements Screen, InputProcessor {
 				pig.render(batch);
 			}
 			player.render(batch);
+			printScore(score);
 			batch.end();
+			
+			
+			
 			break;
+		}
+	}
+
+	private void printScore(int score2) {
+		
+		Sprite number;
+		
+		String parse = Integer.toString(score2);
+		for(int i = 0; i < parse.length(); i++){
+			number = new Sprite(TextureManager.getTexture("Images/Numbers/" + 1 + ".png"));
+			number.setFlip(false, true);
+			number.setBounds( camera.position.x - camera.viewportWidth/2, camera.position.y - camera.viewportHeight/2, 16f/16.0f, 9f/16f);
+			number.draw(batch);
 		}
 	}
 

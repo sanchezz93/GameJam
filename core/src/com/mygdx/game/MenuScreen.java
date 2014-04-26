@@ -3,11 +3,8 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-<<<<<<< HEAD
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-=======
->>>>>>> b4b21c4675011e95664d79a3bf855d57072a4895
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -18,14 +15,10 @@ public class MenuScreen implements Screen, InputProcessor {
 	private OrthographicCamera camera;
 	
 	public MenuScreen() {
-<<<<<<< HEAD
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 16, 9);
 		batch = new SpriteBatch();
 		playButton = new Sprite(new Texture("Images/Menu/play.png"));
-=======
-		playButton = new Sprite(TextureManager.getTexture("sdfkjsd"));
->>>>>>> b4b21c4675011e95664d79a3bf855d57072a4895
 		playButton.setBounds(4, 4, 3, 3);
 		playButton.setOrigin(8f, 4.5f);
 	}
