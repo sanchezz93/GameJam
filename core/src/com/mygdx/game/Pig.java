@@ -30,11 +30,27 @@ public class Pig extends Character {
 	
 	public void update(Map map) {
 		super.update(map);
+		
+		if(grab()){
+			this.getSpeed().x=0;
+			this.getSpeed().y=0;
+			
+		}
 		aiCounter++;
 		if(aiCounter == updateTime) {
 			aiCounter = 0;
 			ai(map);
 		}
+		
+	}
+	
+	public boolean grab() {
+		float xdiff = this.getRectangle().x + this.getRectangle().width/2 - player.getRectangle().x - player.getRectangle().width/2;
+		float ydiff = this.getRectangle().y - this.getRectangle().height/2 - player.getRectangle().y + player.getRectangle().height/2;
+		int distance = (int) Math.sqrt(xdiff*xdiff+ydiff*ydiff);
+		if(distance <= this.getRectangle().width/3)
+			return true;
+		return false;
 	}
 	
 	public void ai(Map map) {
